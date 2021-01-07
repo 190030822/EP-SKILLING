@@ -1,0 +1,249 @@
+CO1-XML+JDBC+MAVEN+Servlets
+CO2-JSP+Hibernate
+CO3-Springs
+CO4-Spring Boot+Restfull
+================================================================
+XML:???
+"Data"----->raw fact
+a is ravi good boy
+
+data+"syntax+sementics"--->information
+ravi is a good boy
+
+eXtensible Markup Language.
+
+markup--> <>properties
+
+HTML--->markups predefined 
+XML------>markups userdefined
+
+1.Configuration (proj requirements+DB)
+
+
+characterstics:
+-------------------
+1.extensible:allows to create your own self-descriptive tags
+2.carries the data but not the design
+3.Open source(W3C)-->(world wide web consortium)
+
+XML--->programming language???
+PL-->Computation+Algorithms
+No
+
+
+Syntax Rules:
+tags and elements, attributes and text
+**Case Sensitive
+
+<? xml version="1.0"?>
+<Employees>
+<employee>
+<name>Karthik</name>
+<emailid>k@c.c</emailid>
+</employee>
+
+<employee>
+<name>Naveen</name>
+<emailid>n@c.c</emailid>
+</employee>
+</Employees>
+
+Rules and Regulations:
+1.DTD(Document type definition)-->validating the elements
+2.XSD(XML schema Definition)---->validating the elements+data type
+
+-------------XML Parser(read the elements)--->validate the elements in XML 
+
+
+create a Students XML
+Students : student(regno,name,marks,emailid)
+
+
+====================================================================
+DTD: 
+1. validation of elements
+
+#PCDATA-->parsed character data
+<email>p@c.c</email>
+
+
+"WELL FORMED"
+
+======================================================================
+XSD:
+XML schema definition
+validation of the elements+data types of the elements
+
+xmlns--->xml namespace
+
+too many rules to define on a single tag
+//rules for h and f 
+<h:table></h:table>-->red
+<f:table></f:table>--->blue
+
+name collisions-->confused--->name spaces 
+
+complexType:multiple elements
+simpleType:single element
+
+Rules of XSD:
+-----------------
+1.define the namespace:
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+</xs:schema>
+
+2.master element(closing the tags)
+<xs:element name="Employees">
+<xs:complexType>
+<xs:sequence>---->employee(empno,ename,email)
+
+3.parent element
+<xs:element name="employee" minOccurs="0/1"     maxOccurs="unbounded"><xs:complexType><xs:sequence>
+
+4.child element 
+<xs:element name="name" type="xs:string"/>
+
+5.attribute ------>need to defined after the sequence
+<xs:attribute name="eid" type="xs:string" use="required"/"optional" />
+
+
+
+Linking the XSD in XML :
+-------------------------------
+1.Go to the master element
+2.In the master element --->define xsi name space 
+<Employees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="">
+
+========================================================================
+
+Can we apply css on an XML???
+XSLT-->
+Extensible stylesheet language --->Tranformation
+
+*predefined of HTML
+
+
+Rules:
+---------
+1.define a name space
+
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+2.Master node:
+<xsl:template match="/Employees">
+
+3.if u want a table structure -->write HTML code
+
+<table>
+<tr><td> </td></tr> 
+</table>
+
+
+4.Define child elements in<td>
+<td> <xsl:value-of select="empname"/></td>
+
+
+parent
+--------
+for-each
+<xsl:for-each select="employee">
+
+link XML with the XSL
+-----------------------------
+
+<?xml-stylesheet type="text/xsl" href="employee.xsl"?>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="employee.xsl"?>
+<Employees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="employee.xsd">
+	<employee eid="a">
+		<name>karthik</name>
+		<emailid>k@c.c</emailid>
+	</employee>
+
+	<employee eid="b">
+		<name>Naveen</name>
+		<emailid>n@c.c</emailid>
+	</employee>
+
+</Employees>
+
+
+
+xsd code:
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified">
+	<xs:element name="Employees">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="employee" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="name" type="xs:string" />
+							<xs:element name="emailid" type="xs:string" />
+						</xs:sequence>
+						<xs:attribute name="eid" type="xs:string" use="required" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
+
+
+
+XSLT code:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	<xsl:template match="/Employees">
+
+		<html>
+			<body>
+
+				<h1 align="center">Employee Table</h1>
+
+				<table  border="1" align="center">
+					<tr><th bgcolor="yellow">Empname</th><th bgcolor="yellow">EmpEmail</th></tr>
+					<xsl:for-each select="employee">
+					<tr>
+					<td><xsl:value-of select="name"/></td>
+					<td><xsl:value-of select="emailid"/></td>            
+					</tr>
+					</xsl:for-each>
+				</table>
+
+			</body>
+
+
+		</html>
+
+	</xsl:template>
+</xsl:stylesheet>
+
+
+DTD:
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT Employees (employee+)>
+<!ELEMENT employee (name,emailid)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT emailid (#PCDATA)>
+<!ATTLIST employee eid ID #REQUIRED>
+
+
+XML: <!DOCTYPE Employee SYSTEM "employee.dtd">
+
+XML? Features?
+Advantage ans disadvantages?
+HTMl Vs XML
+DTD
+XSD
+DTD VS XSD
+XSLT
