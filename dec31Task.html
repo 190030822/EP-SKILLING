@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <script>
+        function validation() {
+            var user = document.f1.user.value;
+            var email = document.f1.email.value;
+            var at = email.indexOf('@');
+            var dot = email.lastIndexOf('.');
+
+            att = parseInt(at);
+            dott = parseInt(dot);
+
+            var rate = email.slice(at);
+            var doted = email.slice(rate);
+
+            if (user == null || user == "") {
+                alert("enter the username properly");
+            }
+
+
+            
+
+            else if (att == -1 || dott == -1 || att == 0 || att - dott < 1)
+             {
+                alert("Enter 1 proper Email");
+            }
+            
+            else if ( parseInt(doted.length) < 2) 
+            {
+                alert("Enter 2 proper Email");
+            }
+            else 
+            {
+                alert("Submitted Succesfully");
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <form name="f1" onsubmit="validation()">
+        Username:<input type="text" name="user"><br>
+        Email:<input type="text" name="email"><br>
+        <input type="submit" value="validate">
+    </form>
+</body>
+
+</html>

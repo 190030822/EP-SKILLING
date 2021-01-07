@@ -1,0 +1,63 @@
+<html>
+<head>
+ <script>
+function validation()
+{
+  var name1=document.f1.name1.value;
+  var id=document.f1.ID.value;
+  var email=document.f1.email;
+  var checkboxes=document.querySelectorAll(`input[name="check[]"]:checked`)
+  if(name1==""||name1==null||id==""||id==null||email==null||email=="")
+  {
+    alert("Enter all the fields");
+    return false;
+  }
+  else if(checkboxes.length==0)
+  {
+   alert("minimum one checkbox need to be selected");
+   return false;
+  }
+else if (name1.length<8)
+{
+  alert("username must be at least 8 characters long."); 
+ return false; 
+}
+else if(id.length!=10 )
+{
+  alert("phone number must be 10 numbers");
+  return false;
+}
+else if( id <= 0||isNaN(id)==true ||id.indexOf(".")!=-1 )
+{
+  alert("phone number must be only numbers");
+  return false;
+}
+else if (email.length<8)
+{
+  alert("email must be at least 8 characters long."); 
+ return false; 
+}
+else
+{
+ alert("your Registration Form is submitted");
+ return false;
+}
+}
+ </script>
+</head>
+<title>Register Page</title>
+<body>
+<div>
+<p>Registration Form</p>
+<form name="f1" method="post" onsubmit="return validation()">
+<table allign="center">
+<tr class="first"><td> Username :</td> <td> <input type="text"  name="name1"></td></tr>
+<tr class="second"><td> phoneno : </td> <td><input type="text"  name="ID"></td></tr>
+<tr class="third"><td> Email Id: </td> <td><input type="Email"  name="email"></td></tr>
+<tr class="fourth"><td> Favourite Games : </td> <td><input type="checkbox" name="check[]">cricket</td><td><input type="checkbox" name="check[]">Football </td><td><input type="checkbox" name="check[]">chess</td></tr>
+<tr class="eigth"><td><input type=submit value="Register"></td></tr>
+</table>
+</form>
+</div>
+</body>
+</html>
