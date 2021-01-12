@@ -1,0 +1,41 @@
+public class jdbc
+{
+public static void main (string[] args) throws ClassNotFoundException
+{
+/*
+* class Class
+*	{ 
+*	forName()//static
+*	}
+*
+*/
+/*1. Register the driver*/
+
+	Class.forName("Driver path");
+
+/*2. Establishing connection with database*/
+
+	Connection c=DriverManager.getConnection("properties of db","username","password");
+
+/*3.prepare a statment
+* which will be helpful in preparing CRUD operations*/
+
+	Statment st=c.createStatment();
+
+/*4. executing statments*/
+
+	ins=st.executeUpdate("Insert into student values (1,"karthik","karthik@gmail.com")
+	if (i>0)
+	{
+	System.out.println(i+"rows has been inserted");
+	}
+	else
+	{
+	System.out.println("No row is Inserted");
+	}
+
+/*5.closing the connection*/
+
+	c.close();
+}
+}
